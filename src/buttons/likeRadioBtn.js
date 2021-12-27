@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
+import { radioOsState } from "../ButtonApp";
 
-export const LikeRadioBtn = (props) => {
-  const [selectedOS, setOSValue] = useState("Windows");
-
-  const handleChange = (event) => {
-    console.log(event.target.value);
-    const newOS = event.target.value;
-    setOSValue(newOS);
-    if (props.onOSUpdate) {
-      props.onOSUpdate(newOS);
-    }
-  };
+export const LikeRadioBtn = () => {
+  const [radioOs, setRadioOs] = useRecoilState(radioOsState);
 
   return (
     <div>
@@ -21,8 +14,8 @@ export const LikeRadioBtn = (props) => {
           value="Windows"
           name="platform"
           type="radio"
-          checked={selectedOS === "Windows"}
-          onChange={handleChange}
+          checked={radioOs === "Windows"}
+          onChange={(e) => setRadioOs(e.target.value)}
         />
         <label className="form-check-label" htmlFor="Windows">
           Windows
@@ -35,8 +28,8 @@ export const LikeRadioBtn = (props) => {
           value="Mac"
           name="platform"
           type="radio"
-          checked={selectedOS === "Mac"}
-          onChange={handleChange}
+          checked={radioOs === "Mac"}
+          onChange={(e) => setRadioOs(e.target.value)}
         />
         <label className="form-check-label" htmlFor="Mac">
           Mac
@@ -49,8 +42,8 @@ export const LikeRadioBtn = (props) => {
           value="Linux"
           name="platform"
           type="radio"
-          checked={selectedOS === "Linux"}
-          onChange={handleChange}
+          checked={radioOs === "Linux"}
+          onChange={(e) => setRadioOs(e.target.value)}
         />
         <label className="form-check-label" htmlFor="Linux">
           Linux

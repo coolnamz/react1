@@ -1,33 +1,30 @@
 import React, { useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+
+import { radioOsState, btnCountState } from "../ButtonApp";
 
 export const LikeBtn = (props) => {
-  const [count, setCount] = useState(null);
-  console.log("LikeBtn", count, props.initCount);
+  const radioOs = useRecoilValue(radioOsState);
+  const [btnCount, setBtnCount] = useRecoilState(btnCountState);
 
   // props.initCount가 증가하면 이에 반응함 (parent 값에 반응)
-  useEffect(() => {
-    setCount(props.initCount);
-  }, [props.initCount]);
+  // useEffect(() => {
+  //   setCount(props.initCount);
+  // }, [props.initCount]);
 
   const plusCount = (event) => {
-    const newCount = count + 1;
-    setCount(newCount);
-    if (props.onCountUpdate) {
-      props.onCountUpdate(newCount);
-    }
+    const newCount = btnCount + 1;
+    setBtnCount(newCount);
   };
 
   const minusCount = (event) => {
-    let newCount = count;
-    if (count <= 0) {
+    let newCount = btnCount;
+    if (btnCount <= 0) {
       newCount = 0;
     } else {
-      newCount = count - 1;
+      newCount = btnCount - 1;
     }
-    setCount(newCount);
-    if (props.onCountUpdate) {
-      props.onCountUpdate(newCount);
-    }
+    setBtnCount(newCount);
   };
 
   const buttonClassname = props.buttonType
@@ -40,7 +37,7 @@ export const LikeBtn = (props) => {
         +
       </button>
       <button className={buttonClassname}>
-        {props.buttonName} {count}
+        {radioOs} {btnCount}
       </button>
       <button className={buttonClassname} onClick={minusCount}>
         -
