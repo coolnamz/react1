@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useRecoilValueLoadable } from "recoil";
 
-import { radioOsState, btnCountState } from "../ButtonApp";
+import { radioOsAtom, btnCountAtom, radioWithCountState } from "../ButtonApp";
 
 export const LikeBtn = (props) => {
-  const radioOs = useRecoilValue(radioOsState);
-  const [btnCount, setBtnCount] = useRecoilState(btnCountState);
+  const radioOs = useRecoilValue(radioOsAtom);
+  const [btnCount, setBtnCount] = useRecoilState(btnCountAtom);
+  const btnCountOS = useRecoilValue(radioWithCountState);
 
   // props.initCount가 증가하면 이에 반응함 (parent 값에 반응)
   // useEffect(() => {
   //   setCount(props.initCount);
   // }, [props.initCount]);
 
-  const plusCount = (event) => {
+  const plusCount = () => {
     const newCount = btnCount + 1;
     setBtnCount(newCount);
   };
 
-  const minusCount = (event) => {
+  const minusCount = () => {
     let newCount = btnCount;
     if (btnCount <= 0) {
       newCount = 0;
@@ -37,7 +38,7 @@ export const LikeBtn = (props) => {
         +
       </button>
       <button className={buttonClassname}>
-        {radioOs} {btnCount}
+        {radioOs} {btnCount} {btnCountOS}
       </button>
       <button className={buttonClassname} onClick={minusCount}>
         -

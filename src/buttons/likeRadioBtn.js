@@ -1,12 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { radioOsState } from "../ButtonApp";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { radioOsAtom, btnCountAtom, radioWithCountState } from "../ButtonApp";
 
-export const LikeRadioBtn = () => {
-  const [radioOs, setRadioOs] = useRecoilState(radioOsState);
+export const LikeRadioBtn = (props) => {
+  const [radioOs, setRadioOs] = useRecoilState(radioOsAtom);
+
+  const [btnCount, setBtnCount] = useRecoilState(btnCountAtom);
+
+  // useEffect(() => {
+  //   setBtnCount(btnCountOS);
+  // }, [btnCountOS]);
+
+  function handleChange(e) {
+    setRadioOs(e.target.value);
+  }
 
   return (
     <div>
+      <h2>{props.children}</h2>
       <div className="form-check">
         <input
           className="form-check-input"
@@ -15,7 +26,7 @@ export const LikeRadioBtn = () => {
           name="platform"
           type="radio"
           checked={radioOs === "Windows"}
-          onChange={(e) => setRadioOs(e.target.value)}
+          onChange={handleChange}
         />
         <label className="form-check-label" htmlFor="Windows">
           Windows
@@ -29,7 +40,7 @@ export const LikeRadioBtn = () => {
           name="platform"
           type="radio"
           checked={radioOs === "Mac"}
-          onChange={(e) => setRadioOs(e.target.value)}
+          onChange={handleChange}
         />
         <label className="form-check-label" htmlFor="Mac">
           Mac
@@ -43,7 +54,7 @@ export const LikeRadioBtn = () => {
           name="platform"
           type="radio"
           checked={radioOs === "Linux"}
-          onChange={(e) => setRadioOs(e.target.value)}
+          onChange={handleChange}
         />
         <label className="form-check-label" htmlFor="Linux">
           Linux
